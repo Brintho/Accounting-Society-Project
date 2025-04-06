@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('main-content')
-    <div class="container">
+    <div class="container my-3">
         <h2>প্রতিষ্ঠানের ধরন সমূহ</h2>
 
         <!-- Success Message -->
@@ -9,10 +9,10 @@
         @endif
 
         <!-- নতুন Organization Type যোগ করার ফর্ম -->
-        <form action="{{ route('organization.store') }}" method="POST">
+        <form action="{{ route('organization.store') }}" method="POST" class="mt-3">
             @csrf
             <input type="text" name="name" class="form-control" placeholder="নতুন প্রতিষ্ঠানের ধরন লিখুন" required>
-            <button type="submit" class="btn btn-success mt-2">সংরক্ষণ করুন</button>
+            <button type="submit" class="btn btn-success mt-3">সংরক্ষণ করুন</button>
         </form>
 
         <hr>

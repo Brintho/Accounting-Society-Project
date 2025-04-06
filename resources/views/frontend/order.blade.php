@@ -11,7 +11,7 @@
                 <div class="col-md-12">
                     <h2>অর্ডার করুন</h2>
                     <ul class="list-unstyled list-inline">
-                        <li class="list-inline-item"><a href="https://samityhisab.com/">হোম</a></li>
+                        <li class="list-inline-item"><a href="{{ route('home') }}">হোম</a></li>
                         <li class="list-inline-item"><i class="fa fa-long-arrow-right"></i>অর্ডার করুন</li>
                     </ul>
                 </div>

@@ -1,26 +1,44 @@
 @extends('layouts.app')
 @section('title', 'Home')
 @section('content')
+
+    <style>
+        .custom-img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .owl-carousel .owl-item img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+        }
+    </style>
     <!-- Slider Area -->
     @php
         $homeContent = \App\Models\HomeContent::first();
-        $clients = \App\Models\Order::where('status', 'approved')->get();
+        $clients = \App\Models\Order::where('status', 'Approved')->get();
+
     @endphp
 
     <section class="home-slider">
         <div class="container">
             @if ($homeContent && $homeContent->image)
-                <div class="slider-wrapper owl-carousel owl-loaded owl-drag">
-                    <div class="owl-stage-outer">
-                        <div class="owl-stage" style="width: 1110px; transform: translate3d(0px, 0px, 0px);">
-                            <div class="owl-item active" style="width: 1110px; height: 400px;">
-                                <div class="slider-item slider12">
-                                    <img style="width: auto; height: auto; max-width: 100%; object-fit: cover;"
-                                        src="{{ asset('uploads/home/' . $homeContent->image) }}"
-                                        alt="{{ $homeContent->title ?? '' }}">
-                                </div>
-                            </div>
-                        </div>
+                <div class="slider-wrapper owl-carousel">
+                    <div class="slider-item">
+                        <img class="img-fluid custom-img" src="{{ asset('uploads/home/' . $homeContent->image) }}"
+                            alt="{{ $homeContent->title ?? '' }}">
+                    </div>
+                    <div class="slider-item">
+                        <img class="img-fluid custom-img" src="{{ asset('uploads/home/' . $homeContent->image) }}"
+                            alt="{{ $homeContent->title ?? '' }}">
+                    </div>
+                    <div class="slider-item">
+                        <img class="img-fluid custom-img" src="{{ asset('uploads/home/' . $homeContent->image) }}"
+                            alt="{{ $homeContent->title ?? '' }}">
                     </div>
                 </div>
             @else
@@ -49,7 +67,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="happy-area-top2 area-title text-center">
-                        <h4>কি কি আছে এই সফটওয়্যার এ?</h4>
+                        <h4>{{ $homeContent->title }}</h4>
                         <div class="elementor-divider">
                             <span class="elementor-divider-separator"></span>
                         </div>
@@ -58,10 +76,10 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    @if ($homeContent && $homeContent->title)
-                        <p>{{ $homeContent->title }}</p>
+                    @if ($homeContent && $homeContent->software_features)
+                        <p>{{ $homeContent->software_features }}</p>
                     @endif
-                    <p>এই সফটওয়্যার ব্যবহারে যেসব সুবিধা পাচ্ছেন -</p>
+                    <p>{{ $homeContent->description }}</p>
                     <ul style="list-style: circle;margin-bottom: 10px;margin-left: 25px;">
                         @if ($homeContent && $homeContent->features)
                             @foreach (json_decode($homeContent->features) as $feature)
@@ -69,7 +87,7 @@
                             @endforeach
                         @endif
                     </ul>
-                    <p>নিরাপদ, সুরক্ষিত ও ভাবনাহীন নির্ভুল হিসাব রাখুন সমিতি হিসাব অনলাইন সফটওয়্যার ব্যবহার করে।</p>
+                    <p>{{ $homeContent->software_tagline }}</p>
                 </div>
             </div>
         </div>
@@ -124,4 +142,30 @@
 
     <!-- Gallery Area -->
     <!-- End Gallery Area -->
+    <script>
+        $(document).ready(function() {
+            $(".owl-carousel").owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: false,
+                dots: true,
+                autoplay: true,
+                // autoplayTimeout: 8000,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    768: {
+                        items: 1
+                    },
+                    1024: {
+                        items: 1
+                    },
+                    1200: {
+                        items: 1
+                    }
+                }
+            });
+        });
+    </script>
 @endsection

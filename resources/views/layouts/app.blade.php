@@ -51,6 +51,22 @@
     <link rel="stylesheet" href="{{ asset('assets/assets-frontend/css/custom_style.css') }}">
 
     @stack('styles')
+    <style>
+        .custom-img {
+            max-width: 1200px;
+            /* সর্বোচ্চ 1200px পর্যন্ত থাকবে */
+            width: 100%;
+            /* প্যারেন্ট ডিভের সাথে এডজাস্ট হবে */
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .custom-img {
+                max-width: 300px;
+                /* মোবাইল স্ক্রিনে ইমেজ ছোট হবে */
+            }
+        }
+    </style>
 
     <!-- jQuery JS -->
     <script src="{{ asset('assets/assets-frontend/js/assets/vendor/jquery-1.12.4.min.js') }}"></script>
@@ -61,15 +77,6 @@
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVFV3HJ6WD"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'G-EVFV3HJ6WD');
-    </script>
 
 </head>
 
@@ -82,9 +89,10 @@
                 <div class="col-lg-7 col-md-9">
                     <div class="bar-content top-contect-info">
                         <ul class="list-unstyled list-inline">
-                            <li class="list-inline-item"><i class="fa fa-mobile"></i> +8801328228266, +8801605144944
+                            <li class="list-inline-item"><i class="fa fa-mobile"></i> {{ $homeContent->company_phone }}
                             </li>
-                            <li class="list-inline-item"><i class="fa fa-envelope"></i> noorsoftwareltd@gmail.com </li>
+                            <li class="list-inline-item"><i class="fa fa-envelope"></i>
+                                {{ $homeContent->company_email }} </li>
                         </ul>
                     </div>
                 </div>
@@ -147,18 +155,20 @@
                 <div class="col-md-12">
                     <div class="mobile-menu">
                         <nav id="dropdown">
-                            <a href="https://samityhisab.com/"><img
-                                    src="https://samityhisab.com/assets-frontend/img/logo.png"
-                                    alt="সমিতি হিসাব | Samity Hisab"></a>
-                            <!--<a href=""><i class="fa fa-bell-o"></i></a>-->
-                            <ul class="list-unstyled">
-                                <li><a href="https://samityhisab.com/">হোম</a></li>
-                                <li><a href="https://samityhisab.com/price">মূল্য তালিকা</a></li>
-                                <li><a href="https://samityhisab.com/demo">ডেমো দেখুন</a></li>
-                                <li><a href="https://samityhisab.com/order">অর্ডার করুন</a></li>
-                                <li><a href="https://samityhisab.com/client">গ্রাহক তালিকা</a></li>
-                                <!--<li><a href="https://samityhisab.com/about-us">আমাদের সম্পর্কে</a></li>-->
-                            </ul>
+                            <a href="https://samityhisab.com/"><img class="img-fluid custom-img"
+                                    src="{{ asset('uploads/home/' . $homeContent->image) }}"
+                                    alt="{{ $homeContent->title ?? '' }}">
+
+                                <!--<a href=""><i class="fa fa-bell-o"></i></a>-->
+                                <ul class="list-unstyled">
+                                    <li><a href="{{ route('home') }}">হোম</a></li>
+                                    <li><a href="{{ route('price') }}">মূল্য তালিকা</a></li>
+                                    <li><a href="{{ route('demo') }}">ডেমো দেখুন</a></li>
+                                    <li><a href="{{ route('order.create') }}">অর্ডার করুন</a>
+                                    </li>
+                                    <li><a href="{{ route('client') }}">গ্রাহক তালিকা</a></li>
+                                    <!--<li><a href="https://samityhisab.com/about-us">আমাদের সম্পর্কে</a></li>-->
+                                </ul>
                         </nav>
                     </div>
                 </div>
@@ -185,9 +195,9 @@
                     <div class="findus">
                         <h4>Find Us</h4>
                         <p>
-                            <span><i class="fa fa-map-marker"></i>148/C/1, Wapda Road, Rampura, Dhaka</span>
-                            <span><i class="fa fa-envelope"></i>noorsoftwareltd@gmail.com</span>
-                            <span><i class="fa fa-mobile"></i>+8801328228266, +8801605144944</span>
+                            <span><i class="fa fa-map-marker"></i>{{ $homeContent->company_address }}</span>
+                            <span><i class="fa fa-envelope"></i>{{ $homeContent->company_email }}</span>
+                            <span><i class="fa fa-mobile"></i>{{ $homeContent->company_phone }}</span>
                         </p>
                     </div>
                 </div>
@@ -224,12 +234,12 @@
                                 <li class="list-inline-item"><a href="">Contact Us</a></li>
                                 <li class="list-inline-item"><a href="">Careers</a></li>
                             </ul>-->
-                        <p>Powered By <a href="https://noorsoftwarebd.com/" target="_blank">Noor Software
+                        <p>Powered By <a href="{{ $homeContent->website_link }}" target="_blank">Noor Software
                                 Solutions</a></p>
                         <ul class="social list-unstyled list-inline">
                             <li class="list-inline-item"><a href="https://www.facebook.com/SomityHisabOfficial/"><i
                                         class="fa fa-facebook"></i></a></li>
-                            <li class="list-inline-item"><a href="https://www.youtube.com/@NoorSoftware"><i
+                            <li class="list-inline-item"><a href="{{ $homeContent->youtube_link }}@NoorSoftware"><i
                                         class="fa fa-youtube"></i></a></li>
                         </ul>
                     </div>
@@ -245,11 +255,11 @@
     <!-- End Footer Section -->
 
     <div class="icon-bar">
-        <a href="https://m.me/116930088003963" class="messenger"><i class="fab fa-facebook-messenger"
+        <a href="{{ $homeContent->messenger }}" class="messenger"><i class="fab fa-facebook-messenger"
                 aria-hidden="true"></i></a>
-        <a href="whatsapp:+8801605144944" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
-        <a href="tel:+8801605144944" class="phone"><i class="fa fa-phone"></i></a>
-        <a href="mailto:noorsoftwareltd@gmail.com" class="envelope"><i class="fa fa-envelope"></i></a>
+        <a href="whatsapp:{{ $homeContent->whatsapp_number }}" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+        <a href="tel:{{ $homeContent->company_phone }}" class="phone"><i class="fa fa-phone"></i></a>
+        <a href="mailto: {{ $homeContent->company_email }}" class="envelope"><i class="fa fa-envelope"></i></a>
         <!--<a href="https://www.facebook.com/SomityHisabOfficial/" class="facebook"><i class="fab fa-facebook"></i></a>
         <a href="https://www.youtube.com/@NoorSoftware" class="youtube"><i class="fab fa-youtube"></i></a>-->
     </div>

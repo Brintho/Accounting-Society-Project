@@ -18,12 +18,14 @@ class DemoController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
             'your_name'         => 'required|string|max:255',
             'org_type_id'       => 'required',
             'organization_name' => 'required|string|max:255',
             'address'           => 'required|string|max:255',
             'present_member'    => 'required|numeric',
+            'comment'           => 'nullable|string|max:255',
             'mobile_no'         => 'required|digits:11',
             'email'             => 'required|email',
             'captcha_code'      => 'required|numeric',

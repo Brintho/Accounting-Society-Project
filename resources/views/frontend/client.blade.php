@@ -1,5 +1,6 @@
 @php
-    $clients = \App\Models\Order::where('status', 'approved')->get();
+    $clients = \App\Models\DemoRequest::where('status', 'Active')->get();
+
 @endphp
 @extends('layouts.app')
 @section('content')
@@ -9,7 +10,7 @@
                 <div class="col-md-12">
                     <h2>গ্রাহক তালিকা</h2>
                     <ul class="list-unstyled list-inline">
-                        <li class="list-inline-item"><a href="https://samityhisab.com/">হোম</a></li>
+                        <li class="list-inline-item"><a href="{{ route('home') }}">হোম</a></li>
                         <li class="list-inline-item"><i class="fa fa-long-arrow-right"></i>গ্রাহক তালিকা</li>
                     </ul>
                 </div>

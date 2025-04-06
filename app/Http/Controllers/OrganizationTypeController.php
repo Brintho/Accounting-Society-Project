@@ -14,15 +14,8 @@ class OrganizationTypeController extends Controller
         return view('admin.organization_type.index', compact('orgTypes'));
     }
 
-    public function create()
-    {
-        return view('admin.organization_type.create');
-
-    }
-
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'name' => 'required|',
         ]);
@@ -34,14 +27,12 @@ class OrganizationTypeController extends Controller
         return redirect()->back()->with('success', 'প্রতিষ্ঠানের ধরন সফলভাবে যোগ করা হয়েছে!');
     }
 
-    // নির্দিষ্ট Organization Type সম্পাদনার জন্য
     public function edit($id)
     {
         $orgType = OrganizationType::findOrFail($id);
         return view('admin.organization_type.edit', compact('orgType'));
     }
 
-    // Organization Type আপডেট করার জন্য
     public function update(Request $request, $id)
     {
         $request->validate([
